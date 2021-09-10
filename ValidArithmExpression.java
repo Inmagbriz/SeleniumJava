@@ -40,11 +40,12 @@ public class ValidArithmExpression {
 	Left side )		only [0,9]
 	) Right side	any but .	
 	4. + - * /  never together 
-	5. + - * / not at the beginning, not at the end
+	5. + - * / not at the end
+	6. * / not at the beginning
 */	
 
 		String text = "(4+2)*7";					//Nice case. True
-		
+
 //		text = "()(()#)";
 		
 //		text = "5+5";								//Without parentheses
@@ -72,6 +73,11 @@ public class ValidArithmExpression {
 //		text = "5++3";
 //		text = "4*-6";
 //		text = "1./3";
+//Validation 5 and 6	
+//		text = "+5-3";
+//		text = "-5-3";
+//		text = "/5-3";
+//		text = "*5-3";
 		
 		
 		
@@ -135,11 +141,18 @@ public class ValidArithmExpression {
 				return false;
 			}
 		}
-		//5. + - * / not at the beginning, not at the end
 		String first = Character.toString(exp[0]);
 		String last = Character.toString(exp[exp.length-1]);
-		if (symbols.contains(first) || symbols.contains(last)) {
-			System.out.println ("Symbols cannot be at the beginning or at the end");
+		
+		//5. + - * / not at the end
+		if (symbols.contains(last)) {
+			System.out.println ("Symbols + - * / cannot be at the end");
+			return false;
+		}
+		//6. * / not at the beginning
+		symbols = "*/";
+		if (symbols.contains(first)) {
+			System.out.println ("Symbols */ cannot be at the beginning");
 			return false;
 		}
 		return true;
